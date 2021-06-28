@@ -5,14 +5,14 @@ public enum StatusTarefa {
 	EM_EXECUCAO("Em execução"),
 	TERMINADO("Terminado");
 	
-	private String descricao;
+	private String status;
 	
-	StatusTarefa(String descricao) {
-		this.descricao = descricao;
+	StatusTarefa(String status) {
+		this.status = status;
 		}
 	
-	public String getDescricao()  {
-		return descricao;
+	public String getStatus()  {
+		return status;
 		
 	}
 }

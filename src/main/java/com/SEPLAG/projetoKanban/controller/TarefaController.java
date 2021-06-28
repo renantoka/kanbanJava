@@ -4,9 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +27,7 @@ public class TarefaController {
 	public ModelAndView novo() {
 		ModelAndView mv = new ModelAndView("CadastroTarefa");
 		mv.addObject("todosStatusTarefa", StatusTarefa.values());
+		mv.addObject("todasPrioridadeTarefa", PrioridadeTarefa.values());
 		return mv;
 	}
 	
@@ -37,12 +36,20 @@ public class TarefaController {
 		tarefas.save(tarefa);
 		
 		ModelAndView mv = new ModelAndView("CadastroTarefa");
-		mv.addObject("mensagem", "Tarefa salvo com sucesso!");
+		mv.addObject("mensagem", "Tarefa salva com sucesso!");
 		return mv;		
 	}
 	
-	@ModelAttribute("todosPrioridadeTarefa")
-	public List<PrioridadeTarefa> todosPrioridadeTarefa() {
+	@RequestMapping
+	public ModelAndView pesquisar() {
+		List<Tarefa> todasTarefas = tarefas.findAll();
+		ModelAndView mv = new ModelAndView("PesquisaTarefas");
+		mv.addObject("tarefas", todasTarefas);
+		return mv;
+	}
+	
+	@ModelAttribute("todasPrioridadeTarefa")
+	public List<PrioridadeTarefa> todasPrioridadeTarefa() {
 		return Arrays.asList(PrioridadeTarefa.values());
 	}
 	

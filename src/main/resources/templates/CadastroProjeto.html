@@ -5,22 +5,22 @@
 	layout:decorate="~{LayoutPadrao}">
 	
 <head>
-		<title>Cadastro de tarefas</title>
+		<title>Cadastro de projetos</title>
 </head>
 
 <section layout:fragment="conteudo"> 
 
-	<form class="form-horizontal" method="POST" action="/tarefas">
+	<form class="form-horizontal" method="POST" action="/projetos">
 		<div class="alert alert-sucess" th:if="${!#strings.isEmpty(mensagem)}">
 
-			<span th:text="${mensagem}">Tarefa cadastrada com sucesso!</span>
+			<span th:text="${mensagem}">Projeto cadastrado com sucesso!</span>
 		</div>
 		
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="clearfix">
-				<h1 class="panel-title pesq-titulo-panel">Nova tarefa</h1>
-				<a class="btn btn-link pesq-link-panel" href="/tarefas">Voltar para pesquisa</a>
+				<h1 class="panel-title pesq-titulo-panel">Novo projeto</h1>
+				<a class="btn btn-link pesq-link-panel" href="/projetos">Voltar para pesquisa</a>
 				</div>
 			</div>
 
@@ -41,35 +41,17 @@
 							name="dataVencimento" />
 					</div>
 				</div>
-				
-				<div class="form-group">
-					<label for="prioridade" class="col-sm-2 control-label">Prioridade</label>
-					<div class="col-sm-2">
-						<select class="form-control" name="prioridade">
-							<option th:each="prioridade : ${todasPrioridadeTarefa}" th:value="${prioridade}" th:text="${prioridade.prioridade}"></option>
 							
-						</select>
-					</div>
-					
-					<div class="form-group">
-						<label for="status" class="col-sm-2 control-label">Status</label>
-						<div class="col-sm-2">
-							<select class="form-control" name="status">
-								<option th:each="status : ${todosStatusTarefa}" th:value="${status}" th:text="${status.status}"></option>
-								
-							</select>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-primary">Salvar
-								tarefa</button>
+								projeto</button>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+	
 	</form>
 </section>
 </html>

@@ -20,7 +20,7 @@ public class Tarefa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	private String descricao;
+	private String title;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -40,12 +40,12 @@ public class Tarefa {
 		this.codigo = codigo;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Date getDataVencimento() {
