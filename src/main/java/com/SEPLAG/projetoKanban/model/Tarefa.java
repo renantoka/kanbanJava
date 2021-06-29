@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,9 +20,9 @@ public class Tarefa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long id;
 
-	private String title;
+	private String titulo;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -31,21 +33,34 @@ public class Tarefa {
 
 	@Enumerated(EnumType.STRING)
 	private PrioridadeTarefa prioridade;
+	
+	@ManyToOne
+	@JoinColumn(name="id_projeto")
+	private Projeto projeto;
+	
 
-	public Long getCodigo() {
-		return codigo;
+	public Projeto getProjeto() {
+		return projeto;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
 
-	public String getTitle() {
-		return title;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public Date getDataVencimento() {
@@ -76,7 +91,7 @@ public class Tarefa {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -89,10 +104,10 @@ public class Tarefa {
 		if (getClass() != obj.getClass())
 			return false;
 		Tarefa other = (Tarefa) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

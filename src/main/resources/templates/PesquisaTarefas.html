@@ -33,8 +33,8 @@
 				<tbody>
 				
 					<tr th:each="tarefa : ${tarefas}">
-						<td class="text-center" th:text="${tarefa.codigo}"></td>
-						<td th:text="${tarefa.title}"></td>
+						<td class="text-center" th:text="${tarefa.id}"></td>
+						<td th:text="${tarefa.titulo}"></td>
 						<td class="text-center" th:text="${{tarefa.dataVencimento}}"></td>
 						<td class="text-center" th:text="${tarefa.prioridade.prioridade}"></td>
 						<td class="text-center" th:text="${tarefa.status.status}"></td>

@@ -4,12 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.SEPLAG.projetoKanban.model.Projeto;
+import com.SEPLAG.projetoKanban.model.Tarefa;
 import com.SEPLAG.projetoKanban.repository.ProjetoRepository;
 
 
@@ -20,6 +24,15 @@ public class ProjetoController {
 	@Autowired
 	private ProjetoRepository projetos;
 			
+	@GetMapping("/all")
+	public ResponseEntity<List<Projeto>> pesquisar() {
+		List<Projeto> todosProjetos = (List<Projeto>) projetos.findAll();
+		return new ResponseEntity<List<Projeto>>(todosProjetos, HttpStatus.OK);
+	}
+	
+	
+// Descomentar para ter a visualização em HTML simples
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 		ModelAndView mv = new ModelAndView("CadastroProjeto");
@@ -34,13 +47,13 @@ public class ProjetoController {
 		mv.addObject("mensagem", "Projeto salvo com sucesso!");
 		return mv;		
 	}
-	
-	@RequestMapping
-	public ModelAndView pesquisar() {
-		List<Projeto> todosProjetos = projetos.findAll();
-		ModelAndView mv = new ModelAndView("PesquisaProjetos");
-		mv.addObject("projetos", todosProjetos);
-		return mv;
-	}
+//	
+//	@RequestMapping
+//	public ModelAndView pesquisar() {
+//		List<Projeto> todosProjetos = projetos.findAll();
+//		ModelAndView mv = new ModelAndView("PesquisaProjetos");
+//		mv.addObject("projetos", todosProjetos);
+//		return mv;
+//	}
 	
 }

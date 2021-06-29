@@ -1,11 +1,14 @@
 package com.SEPLAG.projetoKanban.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,28 +19,38 @@ public class Projeto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long id;
 
-	private String title;
+	private String titulo;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
-
-	public Long getCodigo() {
-		return codigo;
+	
+	private List<Tarefa> tarefasProjeto;
+	
+	public List<Tarefa> getTarefasProjeto() {
+		return tarefasProjeto;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setTarefasProjeto(List<Tarefa> tarefasProjeto) {
+		this.tarefasProjeto = tarefasProjeto;
 	}
 
-	public String getTitle() {
-		return title;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public Date getDataVencimento() {

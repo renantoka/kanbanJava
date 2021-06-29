@@ -31,8 +31,8 @@
 				<tbody>
 				
 					<tr th:each="projeto : ${projetos}">
-						<td class="text-center" th:text="${projeto.codigo}"></td>
-						<td th:text="${projeto.title}"></td>
+						<td class="text-center" th:text="${projeto.id}"></td>
+						<td th:text="${projeto.titulo}"></td>
 						<td class="text-center" th:text="${{projeto.dataVencimento}}"></td>
 						<td class="text-center"> 
 						<a class="btn btn-link pesq-link-panel" href="/tarefas/novo">Nova tarefa</a>
