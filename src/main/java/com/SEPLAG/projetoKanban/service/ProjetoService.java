@@ -21,6 +21,21 @@ public class ProjetoService {
 
 		return projetos.save(projeto);
 	}
+	
+	public Projeto buscarPeloId(Long id) {
+		Projeto projetoSalvo = projetos.findById(id).get();
+		
+		return projetoSalvo;
+	}
+	
+	public Projeto atualizar(Long id, Projeto projeto) {
+		
+		Projeto projetoSalvo = buscarPeloId(id);
+		
+		return projetos.save(projetoSalvo);
+	}
+	
+	
 	public Page<Projeto> pesquisar(Pageable pageable){
 		return projetos.findAll(pageable);
 	}
