@@ -35,7 +35,7 @@ public class Tarefa {
 	private PrioridadeTarefa prioridade;
 	
 	@ManyToOne
-	@JoinColumn(name="id_projeto")
+	@JoinColumn(name="id_projeto", referencedColumnName="id")
 	private Projeto projeto;
 	
 

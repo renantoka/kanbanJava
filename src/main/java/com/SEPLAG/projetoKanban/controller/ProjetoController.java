@@ -3,23 +3,31 @@ package com.SEPLAG.projetoKanban.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.SEPLAG.projetoKanban.model.Projeto;
-import com.SEPLAG.projetoKanban.model.Tarefa;
+import com.SEPLAG.projetoKanban.model.Projeto;
 import com.SEPLAG.projetoKanban.repository.ProjetoRepository;
+import com.SEPLAG.projetoKanban.service.ProjetoService;
 
 
 @RestController
 @RequestMapping("/projetos")
 public class ProjetoController {
+	
+	@Autowired
+	private ProjetoService projetoService;
 	
 	@Autowired
 	private ProjetoRepository projetos;
@@ -39,14 +47,20 @@ public class ProjetoController {
 		return mv;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(Projeto projeto) {
-		projetos.save(projeto);
+	@PostMapping
+	public ResponseEntity<Projeto>salvar(@RequestBody Projeto projeto, HttpServletResponse response) {
+		Projeto projetoSalvar = projetoService.salvar(projeto);
 		
-		ModelAndView mv = new ModelAndView("CadastroProjeto");
-		mv.addObject("mensagem", "Projeto salvo com sucesso!");
-		return mv;		
+		return ResponseEntity.status(HttpStatus.CREATED).body(projetoSalvar);		
 	}
+//	@RequestMapping(method = RequestMethod.POST)
+//	public ModelAndView salvar(Projeto projeto) {
+//		projetos.save(projeto);
+//		
+//		ModelAndView mv = new ModelAndView("CadastroProjeto");
+//		mv.addObject("mensagem", "Projeto salvo com sucesso!");
+//		return mv;		
+//	}
 //	
 //	@RequestMapping
 //	public ModelAndView pesquisar() {

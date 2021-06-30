@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import com.SEPLAG.projetoKanban.model.StatusTarefa;
 import com.SEPLAG.projetoKanban.model.Tarefa;
 import com.SEPLAG.projetoKanban.repository.ProjetoRepository;
 import com.SEPLAG.projetoKanban.repository.TarefaRepository;
+import com.SEPLAG.projetoKanban.service.TarefaService;
 
 
 @RestController
@@ -30,7 +33,7 @@ import com.SEPLAG.projetoKanban.repository.TarefaRepository;
 public class TarefaController {
 	
 	@Autowired
-	private TarefaRepository tarefas;
+	private TarefaService tarefaService;
 	
 	@Autowired
 	private ProjetoRepository projetos;
@@ -50,16 +53,19 @@ public class TarefaController {
 		if (projeto == null) {
 			throw new Exception("Não foi encontrado o id do projeto");
 		}
-				
-		tarefas.save(tarefa);
-		return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);		
+		Tarefa tarefaSalvar = tarefaService.salvar(tarefa);
+		return ResponseEntity.status(HttpStatus.CREATED).body(tarefaSalvar);		
+	}
+	
+	@GetMapping
+	public Page<Tarefa> pesquisar(Pageable pageable) {
+		return tarefaService.pesquisar(pageable);
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Tarefa>> pesquisar() {
-		List<Tarefa> todasTarefas = (List<Tarefa>) tarefas.findAll();
+	public List<Tarefa> pesquisar() {
+		return tarefaService.listarTodos();
 		
-		return new ResponseEntity<List<Tarefa>>(todasTarefas, HttpStatus.OK);
 	}
 // view para testar com html
 //	@RequestMapping
