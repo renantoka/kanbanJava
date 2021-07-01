@@ -43,5 +43,9 @@ public class ProjetoService {
 	public void remover(Long id) {
 		projetos.deleteById(id);
 	}
+	
+	public Projeto atrelarTarefas() {
+		return null;
+	}
 
 }
