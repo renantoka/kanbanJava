@@ -10,11 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,17 +40,8 @@ public class TarefaController {
 	@Autowired
 	private ProjetoRepository projetos;
 	
-	@RequestMapping("/novo")
-	public ModelAndView novo() {
-		ModelAndView mv = new ModelAndView("CadastroTarefa");
-		mv.addObject("todosStatusTarefa", StatusTarefa.values());
-		mv.addObject("todasPrioridadeTarefa", PrioridadeTarefa.values());
-		return mv;
-	}
-	
 	@PostMapping
-	public ResponseEntity<Tarefa>salvar(@RequestBody Tarefa tarefa, HttpServletResponse response) throws Exception {
-		
+	public ResponseEntity<Tarefa> salvar(@RequestBody Tarefa tarefa, HttpServletResponse response) throws Exception {
 		Projeto projeto = projetos.findById(tarefa.getProjeto().getId()).get();
 		if (projeto == null) {
 			throw new Exception("Não foi encontrado o id do projeto");
@@ -63,16 +58,25 @@ public class TarefaController {
 	@GetMapping("/all")
 	public List<Tarefa> pesquisar() {
 		return tarefaService.listarTodos();
-		
 	}
-// view para testar com html
-//	@RequestMapping
-//	public ModelAndView pesquisar() {
-//		List<Tarefa> todasTarefas = tarefas.findAll();
-//		ModelAndView mv = new ModelAndView("PesquisaTarefas");
-//		mv.addObject("tarefas", todasTarefas);
-//		return mv;
-//	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Tarefa> buscaPeloId(@PathVariable Long id) {
+		Tarefa tarefa = tarefaService.buscarPeloId(id);
+		return tarefa != null ? ResponseEntity.ok(tarefa) : ResponseEntity.notFound().build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Tarefa> atualizar(@PathVariable Long id, @RequestBody Tarefa tarefa) throws Exception {
+		Tarefa tarefaSalvar = tarefaService.atualizar(id, tarefa);
+		return ResponseEntity.ok(tarefaSalvar);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long id) {
+		tarefaService.remover(id);
+	}
 	
 	@ModelAttribute("todasPrioridadeTarefa")
 	public List<PrioridadeTarefa> todasPrioridadeTarefa() {
@@ -85,3 +89,21 @@ public class TarefaController {
 	}
 
 }
+
+// View para testar cadastro de tarefa com HTML
+//	@RequestMapping("/novo")
+//	public ModelAndView novo() {
+//		ModelAndView mv = new ModelAndView("CadastroTarefa");
+//		mv.addObject("todosStatusTarefa", StatusTarefa.values());
+//		mv.addObject("todasPrioridadeTarefa", PrioridadeTarefa.values());
+//		return mv;
+//	}
+
+// view para testar pesquisa com html
+//	@RequestMapping
+//	public ModelAndView pesquisar() {
+//		List<Tarefa> todasTarefas = tarefas.findAll();
+//		ModelAndView mv = new ModelAndView("PesquisaTarefas");
+//		mv.addObject("tarefas", todasTarefas);
+//		return mv;
+//	}
