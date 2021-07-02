@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{LayoutPadrao}">
+
+<head>
+	<title>Pesquisa de tarefas</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title pesq-titulo-panel">Pesquisa de tarefas</h1>
+				<a class="btn btn-link pesq-link-panel" href="/tarefas/novo">Nova tarefa</a>
+			</div>
+		</div>
+	
+		<div class="panel-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center col-md-1">#</th>
+						<th>Título</th>
+						<th class="text-center col-md-2">Data de vencimento</th>
+						<th class="text-center col-md-2">Prioridade</th>
+						<th class="text-center col-md-2">Status</th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<tr th:each="tarefa : ${tarefas}">
+						<td class="text-center" th:text="${tarefa.id}"></td>
+						<td th:text="${tarefa.titulo}"></td>
+						<td class="text-center" th:text="${{tarefa.dataVencimento}}"></td>
+						<td class="text-center" th:text="${tarefa.prioridade.prioridade}"></td>
+						<td class="text-center" th:text="${tarefa.status.status}"></td>
+						<td class="text-center">
+						
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" th:if="${#lists.isEmpty(tarefas)}">Nenhuma tarefa foi encontrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+</html>

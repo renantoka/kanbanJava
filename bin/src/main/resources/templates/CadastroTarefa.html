@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{LayoutPadrao}">
+	
+<head>
+		<title>Cadastro de tarefas</title>
+</head>
+
+<section layout:fragment="conteudo"> 
+
+	<form class="form-horizontal" method="POST" action="/tarefas">
+		<div class="alert alert-sucess" th:if="${!#strings.isEmpty(mensagem)}">
+
+			<span th:text="${mensagem}">Tarefa cadastrada com sucesso!</span>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+				<h1 class="panel-title pesq-titulo-panel">Nova tarefa</h1>
+				<a class="btn btn-link pesq-link-panel" href="/tarefas">Voltar para pesquisa</a>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="titulo" class="col-sm-2 control-label">Título</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="titulo"
+							name="titulo" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="dataVencimento" class="col-sm-2 control-label">Prazo
+						de término</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="dataVencimento"
+							name="dataVencimento" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="id_projeto" class="col-sm-2 control-label">Insira o ID do projeto</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="id_projeto"
+							name="id_projeto" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="prioridade" class="col-sm-2 control-label">Prioridade</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="prioridade">
+							<option th:each="prioridade : ${todasPrioridadeTarefa}" th:value="${prioridade}" th:text="${prioridade.prioridade}"></option>
+							
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="status" class="col-sm-2 control-label">Status</label>
+						<div class="col-sm-2">
+							<select class="form-control" name="status">
+								<option th:each="status : ${todosStatusTarefa}" th:value="${status}" th:text="${status.status}"></option>
+								
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">Salvar
+								tarefa</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</section>
+</html>

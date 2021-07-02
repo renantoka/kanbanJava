@@ -1,0 +1,29 @@
+.navbar-brand {
+	padding-top: 1px;
+}
+
+.panel-default {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.alert {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+img {
+	width: 70%;
+	height: 145%;
+	display: flex;
+}
+
+.pes-link-panel {
+	float: right;
+	padding: 0px;
+}
+
+.pesq-titulo-panel {
+	float: left;
+	padding-top: 2px;
+}
