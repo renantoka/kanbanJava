@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.SEPLAG.projetoKanban.ProjetoKanbanApplication
+worker: java $JAVA_OPTS -cp target/classes:target/dependency/* com.SEPLAG.projetoKanban.ProjetoKanbanApplication
